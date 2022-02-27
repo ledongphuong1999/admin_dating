@@ -10,14 +10,62 @@ import { Component } from "react";
 import { Link } from "react-router-dom";
 import "./user.css";
 import { userRows } from "../../dummyData";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { URLDefault } from "../../api/urlDefault";
+import axios from "axios";
 
 export default class User extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userList : userRows
+      data: '',
+      fullname: '',
+      age: '',
+      city: '',
+      description: '',
     }
-}
+  }
+
+  componentDidMount() {
+    axios({
+      method: 'POST',
+      url: `${URLDefault}/viewUserWeb`,
+      data: { username: window.location.href.slice(window.location.href.lastIndexOf('/') + 1) }
+    }).then(res => {
+      this.setState({
+        data: res.data.InfoAccount,
+        fullname: res.data.InfoAccount.fullname,
+        age: res.data.InfoAccount.age,
+        city: res.data.InfoAccount.city,
+        description: res.data.InfoAccount.description
+      })
+      console.log('info', this.state.fullname)
+    }).catch(error => {
+      console.log(error);
+    });
+  }
+
+  onUpdate() {
+    console.log('ten', this.state.fullname)
+    axios({
+      method: 'POST',
+      url: `${URLDefault}/updateUserWeb`,
+      data: {
+        username: this.state.data.username,
+        fullname: this.state.fullname,
+        age: this.state.age,
+        city: this.state.city,
+        description: this.state.description,
+      }
+    }).then(res => {
+      window.location.reload()
+    }).catch(error => {
+      console.log(error);
+    });
+
+  }
+
+
   render() {
     return (
       <div className="user">
@@ -31,24 +79,24 @@ export default class User extends Component {
           <div className="userShow">
             <div className="userShowTop">
               <img
-                src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+                src={this.state.data.imageUri?.uri}
                 alt=""
                 className="userShowImg"
               />
               <div className="userShowTopTitle">
-                <span className="userShowUsername">Anna Becker</span>
-                <span className="userShowUserTitle">Software Engineer</span>
+                <span className="userShowUsername">{this.state.data.fullname}</span>
+                <span className="userShowUserTitle">{this.state.data.description}</span>
               </div>
             </div>
             <div className="userShowBottom">
               <span className="userShowTitle">Account Details</span>
               <div className="userShowInfo">
                 <PermIdentity className="userShowIcon" />
-                <span className="userShowInfoTitle">annabeck99</span>
+                <span className="userShowInfoTitle">{this.state.data.username}</span>
               </div>
               <div className="userShowInfo">
                 <CalendarToday className="userShowIcon" />
-                <span className="userShowInfoTitle">18</span>
+                <span className="userShowInfoTitle">{this.state.data.age} age</span>
               </div>
               <span className="userShowTitle">Contact Details</span>
               <div className="userShowInfo">
@@ -57,11 +105,11 @@ export default class User extends Component {
               </div>
               <div className="userShowInfo">
                 <MailOutline className="userShowIcon" />
-                <span className="userShowInfoTitle">annabeck99@gmail.com</span>
+                <span className="userShowInfoTitle">xxx-xxx-xxx@gmail.com</span>
               </div>
               <div className="userShowInfo">
                 <LocationSearching className="userShowIcon" />
-                <span className="userShowInfoTitle">New York | USA</span>
+                <span className="userShowInfoTitle">{this.state.data.city} | Việt Nam</span>
               </div>
             </div>
           </div>
@@ -70,43 +118,55 @@ export default class User extends Component {
             <form className="userUpdateForm">
               <div className="userUpdateLeft">
                 <div className="userUpdateItem">
-                  <label>Username</label>
-                  <input
-                    type="text"
-                    placeholder="annabeck99"
-                    className="userUpdateInput"
-                  />
-                </div>
-                <div className="userUpdateItem">
                   <label>Full Name</label>
                   <input
                     type="text"
-                    placeholder="Anna Becker"
+                    placeholder={this.state.data.fullname}
                     className="userUpdateInput"
+                    onChange={event => {
+                      this.setState({
+                        fullname: event.target.value
+                      })
+                    }}
                   />
                 </div>
                 <div className="userUpdateItem">
-                  <label>Email</label>
+                  <label>Age</label>
                   <input
                     type="text"
-                    placeholder="annabeck99@gmail.com"
+                    placeholder={this.state.data.age}
                     className="userUpdateInput"
-                  />
-                </div>
-                <div className="userUpdateItem">
-                  <label>Phone</label>
-                  <input
-                    type="text"
-                    placeholder="+1 123 456 67"
-                    className="userUpdateInput"
+                    onChange={event => {
+                      this.setState({
+                        age: event.target.value
+                      })
+                    }}
                   />
                 </div>
                 <div className="userUpdateItem">
                   <label>Address</label>
                   <input
                     type="text"
-                    placeholder="New York | USA"
+                    placeholder={this.state.data.city}
                     className="userUpdateInput"
+                    onChange={event => {
+                      this.setState({
+                        city: event.target.value
+                      })
+                    }}
+                  />
+                </div>
+                <div className="userUpdateItem">
+                  <label>Description</label>
+                  <input
+                    type="text"
+                    placeholder={this.state.data.description}
+                    className="userUpdateInput"
+                    onChange={event => {
+                      this.setState({
+                        description: event.target.value
+                      })
+                    }}
                   />
                 </div>
               </div>
@@ -114,7 +174,7 @@ export default class User extends Component {
                 <div className="userUpdateUpload">
                   <img
                     className="userUpdateImg"
-                    src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+                    src={this.state.data.imageUri?.uri}
                     alt=""
                   />
                   <label htmlFor="file">
@@ -122,9 +182,11 @@ export default class User extends Component {
                   </label>
                   <input type="file" id="file" style={{ display: "none" }} />
                 </div>
-                <button className="userUpdateButton">Update</button>
               </div>
             </form>
+            <div className="userUpdateRightbtn">
+              <button className="userUpdateButton" onClick={() => this.onUpdate()}>Update</button>
+            </div>
           </div>
         </div>
       </div>

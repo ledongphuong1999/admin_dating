@@ -10,7 +10,8 @@
 }
 
 .userAddButton {
-  width: 80px;
+  margin-top: 50px;
+  width: 100px;
   border: none;
   padding: 5px;
   background-color: teal;
@@ -125,6 +126,11 @@
     flex-direction: column;
     justify-content: space-between;
 }
+.userUpdateRightbtn{
+  margin-top: 3 0px;
+  justify-content: flex-end;
+  display: flex;
+}
 
 .userUpdateUpload{
     display: flex;
@@ -151,4 +157,5 @@
     background-color: darkblue;
     color: white;
     font-weight: 600;
+    min-width: 170px;
 }
