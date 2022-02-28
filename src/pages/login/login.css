@@ -101,3 +101,7 @@ body {
   border: 1px solid #ccc;
   font-family: inherit;
 }
+.msgStyle {
+  color: #e46569;
+  margin-top: 10px;
+}

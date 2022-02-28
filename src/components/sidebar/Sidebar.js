@@ -42,6 +42,10 @@ export default function Sidebar() {
                 Users
               </li>
             </Link>
+              <li className="sidebarListItem">
+                <DynamicFeed className="sidebarIcon" />
+                NewFeed
+              </li>
           </ul>
         </div>
         {/* <div className="sidebarMenu">
@@ -69,7 +73,7 @@ export default function Sidebar() {
             </li>
           </ul>
         </div> */}
-        <div className="sidebarMenu">
+        {/* <div className="sidebarMenu">
           <h3 className="sidebarTitle">Notifications</h3>
           <ul className="sidebarList">
             <li className="sidebarListItem">
@@ -85,14 +89,16 @@ export default function Sidebar() {
               Messages
             </li>
           </ul>
-        </div>
+        </div> */}
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Staff</h3>
           <ul className="sidebarList">
+          <Link to="/newUser" className="link">
             <li className="sidebarListItem">
               <WorkOutline className="sidebarIcon" />
               Manage
             </li>
+            </Link>
             <li className="sidebarListItem">
               <Timeline className="sidebarIcon" />
               Analytics
