@@ -173,7 +173,7 @@ export default class User extends Component {
               <div className="userUpdateRight">
                 <div className="userUpdateUpload">
                   <img
-                    className="userUpdateImg"
+                    className="userUpdateImg3"
                     src={this.state.data.imageUri?.uri}
                     alt=""
                   />

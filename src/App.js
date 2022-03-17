@@ -9,6 +9,7 @@ import NewUser from "./pages/newUser/NewUser";
 import Login from "./pages/login/login";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import PostList from "./pages/postList/PostList";
+import Post from "./pages/post/post";
 function App() {
   return (
     < Router >
@@ -34,6 +35,9 @@ function App() {
                   </Route>
                   <Route exact path="/user/:userId">
                     <User />
+                  </Route>
+                  <Route exact path="/post/:idPost">
+                    <Post />
                   </Route>
                   <Route path="/newUser">
                     <NewUser />

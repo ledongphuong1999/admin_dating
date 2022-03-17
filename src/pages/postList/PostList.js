@@ -106,7 +106,7 @@ export default class PostList extends Component {
                   return (
                     <>
                       <Link to={{
-                        pathname: "/user/" + params.row._id
+                        pathname: "/post/" + params.row._id
                       }} >
                         <button className="userListEdit">View</button>
                       </Link>
