@@ -48,6 +48,12 @@ export default function Sidebar() {
                 NewFeed
               </li>
             </Link>
+            <Link to="/payments" className="link">
+            <li className="sidebarListItem">
+              <AttachMoney className="sidebarIcon" />
+              Transactions
+            </li>
+            </Link>
           </ul>
         </div>
         {/* <div className="sidebarMenu">

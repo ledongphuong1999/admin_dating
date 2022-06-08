@@ -10,6 +10,7 @@ import Login from "./pages/login/login";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import PostList from "./pages/postList/PostList";
 import Post from "./pages/post/post";
+import PaymentList from "./pages/payment/Payment";
 function App() {
   return (
     < Router >
@@ -32,6 +33,9 @@ function App() {
                   </Route>
                   <Route path="/posts">
                     <PostList />
+                  </Route>
+                  <Route path="/payments">
+                    <PaymentList />
                   </Route>
                   <Route exact path="/user/:userId">
                     <User />
